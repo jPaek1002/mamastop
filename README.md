@@ -1,0 +1,2 @@
+# mamastop
+ Papago translation webscraper
