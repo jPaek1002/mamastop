@@ -23,7 +23,8 @@ class MaMaStop:
 
     def img_to_string(self, filepath):
         reader = ocr.Reader(['ko', 'en'])
-        return "".join(reader.readtext(filepath, detail = 0))
+        return "".join(reader.readtext(filepath, detail = 0)).replace(' ', '')
+
 
     def find_tl(self):
         if os.getcwd() not in os.environ["PATH"]:
