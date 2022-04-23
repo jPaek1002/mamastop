@@ -1,6 +1,6 @@
 from mamastop import MaMaStop
+from da_croppa import da_croppa
 
 if __name__ == "__main__":
-    tl = MaMaStop()
-    result = tl.string_to_nouns(tl.img_to_string('80/3.jpg'))
-    print(result)
+    gui = da_croppa()
+    gui.launch()
