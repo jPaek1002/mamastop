@@ -6,14 +6,14 @@ import cv2
 from PIL import Image
 import easyocr as ocr
 import ssl
-import konlpy
+from konlpy.tag import Mecab
 
 class MaMaStop:
     def __init__(self):
         self.dirpath = ""
         self.nouns = []
-        reader = ocr.Reader(['ko', 'en'])
-        ssl._create_default_https_context = ssl._create_unverified_context
+        self.reader = ocr.Reader(['ko', 'en'])
+        self.mecab = Mecab()
 
     def process_dir(self, dirpath):
         self.dirpath = os.path.abspath(dirpath)
@@ -23,8 +23,10 @@ class MaMaStop:
 
     def img_to_string(self, filepath):
         reader = ocr.Reader(['ko', 'en'])
-        return "".join(reader.readtext(filepath, detail = 0)).replace(' ', '')
+        return " ".join(reader.readtext(filepath, detail = 0))
 
+    def string_to_nouns(self, nouns):
+        return self.mecab.nouns(nouns)
 
     def find_tl(self):
         if os.getcwd() not in os.environ["PATH"]:
