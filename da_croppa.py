@@ -28,39 +28,19 @@ class da_croppa:
         self.dirpath = os.path.abspath(dirname)
         fnames = [os.path.join(os.path.abspath(self.dirpath), x) for x in listdir(self.dirpath)]
         for fname in fnames:
-    # create thumbanials of all images
-    img1 = Image.open('img1.jpg')
-    img1.thumbnail((550, 450))
-    img2 = Image.open('img2.jpg')
-    img2.thumbnail((550, 450))
-    img3 = Image.open('img3.jpg')
-    img3.thumbnail((550, 450))
-    img4 = Image.open('img4.jpg')
-    img4.thumbnail((550, 450))
-    img5 = Image.open('img5.jpg')
-    img5.thumbnail((550, 450))
-    # open images to use with labels
-    image1 = ImageTk.PhotoImage(img1)
-    image2 = ImageTk.PhotoImage(img2)
-    image3 = ImageTk.PhotoImage(img3)
-    image4 = ImageTk.PhotoImage(img4)
-    image5 = ImageTk.PhotoImage(img5)
-    # create list of images
-    images = [image1, image2, image3, image4, image5]
-    # configure the image to the Label in frame
-    i = 0
-    image_label = Label(frame, image=images[i])
-    image_label.pack()
-    # create functions to display
-    # previous an next images
+
+
 
 
     def launch(self):
+        i = 0
+        image_label = Label(self.frame, image=self.images[i])
+        image_label.pack()
         def previous():
             global i
             i = i - 1
             try:
-                image_label.config(image=images[i])
+                self.image_label.config(image=self.images[i])
             except:
                 i = 0
                 previous()
@@ -69,7 +49,7 @@ class da_croppa:
             global i
             i = i + 1
             try:
-                image_label.config(image=images[i])
+                self.image_label.config(image=self.images[i])
             except:
                 i = -1
                 next()
