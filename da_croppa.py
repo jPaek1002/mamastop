@@ -12,13 +12,15 @@ class da_croppa:
         self.root.title("Image viewer application using python")
         self.root.resizable(0, 0)
         # create frame
-        self.frame = Frame(self.root, width=600, height=500, bg='white', relief=GROOVE, bd=2)
+        self.frame = Frame(self.root, width=300, height=800, bg='white', relief=GROOVE, bd=2)
         self.frame.pack(padx=10, pady=10)
         self.images = [ImageTk.PhotoImage(Image.open('welcome.jpg'))]
         self.image_label = None
         self.dirname = None
         self.dirpath = None
         self.page = 0
+        self.coords1 = None
+        self.coords2 = None
 
     def select_in_folder(self):
         self.dirname = filedialog.askdirectory()
@@ -33,7 +35,7 @@ class da_croppa:
             file_ext = os.path.splitext(fname)[1][1:]
             if file_ext in ["jpg", "png", "PNG", "tif", "jpeg", "JPG", "JPEG", "jfif"]:
                 img = Image.open(fname)
-                img.thumbnail((450,800))
+                img.thumbnail((500,800))
                 self.images.append(ImageTk.PhotoImage(img))
 
     def launch(self):
@@ -54,6 +56,14 @@ class da_croppa:
             except:
                 self.page = -1
 
+        def select1(event):
+            if event.x > self.image_label.winfo_x() and event.y > self.image_label.winfo_y():
+                self.coords1 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
+
+        def select2(event):
+            if event.x > self.image_label.winfo_x() and event.y > self.image_label.winfo_y():
+                self.coords2 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
+
         # create buttons
         btn1 = Button(self.root, text="Previous", bg='black', fg='gold', font=('ariel 15 bold'), relief=GROOVE,
                       command=previous)
@@ -65,6 +75,8 @@ class da_croppa:
                       command=self.root.destroy)
         btn3.pack(side=LEFT, padx=60, pady=5)
         in_folder = Button(self.root, text="Select Input Files", width=8, bg='black', fg='gold', font=('ariel 15 bold'),
-                           relief=GROOVE, command=self.select_in_folder())
+                           relief=GROOVE, command=lambda : self.select_in_folder())
         in_folder.pack(side=LEFT, padx=60, pady=5)
+        self.root.bind("<Button-1>", select1)
+
         self.root.mainloop()
