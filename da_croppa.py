@@ -35,8 +35,17 @@ class da_croppa:
             file_ext = os.path.splitext(fname)[1][1:]
             if file_ext in ["jpg", "png", "PNG", "tif", "jpeg", "JPG", "JPEG", "jfif"]:
                 img = Image.open(fname)
-                img.thumbnail((500,800))
+                img.thumbnail((500, 800))
                 self.images.append(ImageTk.PhotoImage(img))
+
+    def get_rect(self):
+        if self.coords1 is not None and self.coords2 is not None:
+            img = self.images[self.page].crop((self.coords1[1],self.coords2[2]),
+                                        (self.coords1[1],self.coords1[2]),
+                                        (self.coords2[1],self.coords1[2]),
+                                        (self.coords2[1],self.coords2[2]),)
+            img.save("bunger.jpg")
+
 
     def launch(self):
         self.image_label = Label(self.frame, image=self.images[self.page])
@@ -57,12 +66,17 @@ class da_croppa:
                 self.page = -1
 
         def select1(event):
-            if event.x > self.image_label.winfo_x() and event.y > self.image_label.winfo_y():
+            if self.image_label.winfo_x() < event.x < self.image_label.winfo_x() + self.images[self.page].width() \
+                    and self.image_label.winfo_y() < event.y < self.image_label.winfo_y() + self.images[self.page].height():
                 self.coords1 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
+            self.get_rect()
 
         def select2(event):
             if event.x > self.image_label.winfo_x() and event.y > self.image_label.winfo_y():
                 self.coords2 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
+                print(self.coords1, self.coords2)
+            self.get_rect()
+
 
         # create buttons
         btn1 = Button(self.root, text="Previous", bg='black', fg='gold', font=('ariel 15 bold'), relief=GROOVE,
@@ -75,8 +89,9 @@ class da_croppa:
                       command=self.root.destroy)
         btn3.pack(side=LEFT, padx=60, pady=5)
         in_folder = Button(self.root, text="Select Input Files", width=8, bg='black', fg='gold', font=('ariel 15 bold'),
-                           relief=GROOVE, command=lambda : self.select_in_folder())
+                           relief=GROOVE, command=lambda: self.select_in_folder())
         in_folder.pack(side=LEFT, padx=60, pady=5)
         self.root.bind("<Button-1>", select1)
+        self.root.bind("<Button-2>", select2)
 
         self.root.mainloop()
