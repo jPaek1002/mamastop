@@ -25,8 +25,8 @@ class MaMaStop:
         reader = ocr.Reader(['ko', 'en'])
         return " ".join(reader.readtext(filepath, detail = 0))
 
-    def string_to_nouns(self, nouns):
-        return self.mecab.nouns(nouns)
+    def string_to_nouns(self, words):
+        return self.mecab.nouns(words)
 
     def find_tl(self):
         if os.getcwd() not in os.environ["PATH"]:

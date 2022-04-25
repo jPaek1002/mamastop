@@ -4,6 +4,7 @@ from tkinter import filedialog
 from os import path
 from os import listdir
 from PIL import Image, ImageTk
+from mamastop import MaMaStop
 
 
 class da_croppa:
@@ -14,13 +15,15 @@ class da_croppa:
         # create frame
         self.frame = Frame(self.root, width=300, height=800, bg='white', relief=GROOVE, bd=2)
         self.frame.pack(padx=10, pady=10)
-        self.images = [ImageTk.PhotoImage(Image.open('welcome.jpg'))]
+        self.images = [Image.open('welcome.jpg')]
         self.image_label = None
         self.dirname = None
         self.dirpath = None
         self.page = 0
         self.coords1 = None
         self.coords2 = None
+        self.reader = MaMaStop()
+        self.current = None
 
     def select_in_folder(self):
         self.dirname = filedialog.askdirectory()
@@ -34,47 +37,57 @@ class da_croppa:
             print(fname)
             file_ext = os.path.splitext(fname)[1][1:]
             if file_ext in ["jpg", "png", "PNG", "tif", "jpeg", "JPG", "JPEG", "jfif"]:
-                img = Image.open(fname)
-                img.thumbnail((500, 800))
-                self.images.append(ImageTk.PhotoImage(img))
+                img = Image.open(fname).resize((500,800))
+                self.images.append(img)
 
     def get_rect(self):
         if self.coords1 is not None and self.coords2 is not None:
-            img = self.images[self.page].crop((self.coords1[1],self.coords2[2]),
-                                        (self.coords1[1],self.coords1[2]),
-                                        (self.coords2[1],self.coords1[2]),
-                                        (self.coords2[1],self.coords2[2]),)
-            img.save("bunger.jpg")
+            img = self.images[self.page].crop((min(self.coords1[0],self.coords2[0]),
+                                                  min(self.coords1[1], self.coords2[1]),
+                                                      max(self.coords1[0], self.coords2[0]),
+                                                          max(self.coords1[1], self.coords2[1])))
+            img.save('temp.png')
+            print(MaMaStop.img_to_string('temp.png', 'temp.png'))
+            os.remove('temp.png')
+            self.coords1 = None
+            self.coords2 = None
+
 
 
     def launch(self):
-        self.image_label = Label(self.frame, image=self.images[self.page])
+        self.current = ImageTk.PhotoImage(self.images[self.page])
+        self.image_label = Label(self.frame, image=self.current)
         self.image_label.pack()
 
         def previous():
             self.page -= 1
+            self.current = ImageTk.PhotoImage(self.images[self.page])
             try:
-                self.image_label.config(image=self.images[self.page])
+                temp = ImageTk.PhotoImage(self.current)
+                self.image_label.config(image=temp)
             except:
                 self.page = 0
 
         def next():
             self.page += 1
+            self.current = ImageTk.PhotoImage(self.images[self.page])
             try:
-                self.image_label.config(image=self.images[self.page])
+                self.image_label.config(image=self.current)
             except:
                 self.page = -1
 
         def select1(event):
-            if self.image_label.winfo_x() < event.x < self.image_label.winfo_x() + self.images[self.page].width() \
-                    and self.image_label.winfo_y() < event.y < self.image_label.winfo_y() + self.images[self.page].height():
+            if self.image_label.winfo_x() < event.x < self.image_label.winfo_x() + self.images[self.page].size[0] \
+                    and self.image_label.winfo_y() < event.y < self.image_label.winfo_y() + self.images[self.page].size[1]:
                 self.coords1 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
+                print("x")
             self.get_rect()
 
         def select2(event):
-            if event.x > self.image_label.winfo_x() and event.y > self.image_label.winfo_y():
+            if self.image_label.winfo_x() < event.x < self.image_label.winfo_x() + self.images[self.page].size[0] \
+                    and self.image_label.winfo_y() < event.y < self.image_label.winfo_y() + self.images[self.page].size[1]:
                 self.coords2 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
-                print(self.coords1, self.coords2)
+                print("y")
             self.get_rect()
 
 
