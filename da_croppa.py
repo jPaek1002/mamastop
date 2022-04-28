@@ -46,9 +46,11 @@ class da_croppa:
                                                   min(self.coords1[1], self.coords2[1]),
                                                       max(self.coords1[0], self.coords2[0]),
                                                           max(self.coords1[1], self.coords2[1])))
-            img.save('temp.png')
-            print(MaMaStop.img_to_string('temp.png', 'temp.png'))
-            os.remove('temp.png')
+            img.save('data/temp.png')
+            tl = MaMaStop.img_to_string('data/temp.png', 'data/temp.png')
+            os.remove('data/temp.png')
+            fname = os.path.join('data', tl + '.png')
+            img.save(fname)
             self.coords1 = None
             self.coords2 = None
 
@@ -63,8 +65,7 @@ class da_croppa:
             self.page -= 1
             self.current = ImageTk.PhotoImage(self.images[self.page])
             try:
-                temp = ImageTk.PhotoImage(self.current)
-                self.image_label.config(image=temp)
+                self.image_label.config(image=self.current)
             except:
                 self.page = 0
 
