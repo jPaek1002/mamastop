@@ -1,8 +1,8 @@
 import os
 import torch.backends.cudnn as cudnn
 import yaml
-from trainer.train import train
-from trainer.utils import AttrDict
+from train import train
+from utils import AttrDict
 import pandas as pd
 cudnn.benchmark = True
 cudnn.deterministic = False
@@ -23,6 +23,7 @@ def get_config(file_path):
         opt.character = opt.number + opt.symbol + opt.lang_char
     os.makedirs(f'./saved_models/{opt.experiment_name}', exist_ok=True)
     return opt
+
 opt = get_config("config_files/ko_filtered_config.yaml")
 train(opt, amp=False)
 

@@ -50,7 +50,7 @@ class da_croppa:
             img.save('data/temp.png')
             tl = self.reader.img_to_string('data/temp.png')
             os.remove('data/temp.png')
-            fname = os.path.join('data', tl + '.png')
+            fname = os.path.join('data', tl + '.jpg')
             img.save(fname)
             self.reader.find_tl(tl)
             self.coords1 = None

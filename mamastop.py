@@ -1,5 +1,4 @@
 import urllib
-
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import os
@@ -24,7 +23,7 @@ class MaMaStop:
             self.img_to_string(fname)
 
     def img_to_string(self, filepath):
-        reader = ocr.Reader(['ko', 'en'])
+        reader = ocr.Reader(['ko'])
         return " ".join(reader.readtext(filepath, detail = 0))
 
     def string_to_nouns(self, words):
