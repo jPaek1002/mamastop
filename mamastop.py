@@ -1,18 +1,20 @@
+import urllib
+
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import os
 from os import listdir
 import cv2
-from PIL import Image
 import easyocr as ocr
 import ssl
 from konlpy.tag import Mecab
+import pyperclip
 
 class MaMaStop:
     def __init__(self):
         self.dirpath = ""
         self.nouns = []
-        self.reader = ocr.Reader(['ko', 'en'])
+        self.reader = ocr.Reader(['ko'])
         self.mecab = Mecab()
 
     def process_dir(self, dirpath):
@@ -28,10 +30,13 @@ class MaMaStop:
     def string_to_nouns(self, words):
         return self.mecab.nouns(words)
 
-    def find_tl(self):
+    def find_tl(self, input):
         if os.getcwd() not in os.environ["PATH"]:
             os.environ["PATH"] += os.pathsep + os.getcwd()
 
+        pyperclip.copy(input)
+
         driver = webdriver.Firefox()
-        driver.get("https://papago.naver.com/?sk=ko&tk=en&st=바보")
+        driver.get("https://papago.naver.com/?sk=ko&tk=en&st=%EB%B0%94%EB%B3%B4")
+
 

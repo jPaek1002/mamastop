@@ -25,6 +25,7 @@ class da_croppa:
         self.reader = MaMaStop()
         self.current = None
 
+
     def select_in_folder(self):
         self.dirname = filedialog.askdirectory()
         if self.dirname is not None:
@@ -47,10 +48,11 @@ class da_croppa:
                                                       max(self.coords1[0], self.coords2[0]),
                                                           max(self.coords1[1], self.coords2[1])))
             img.save('data/temp.png')
-            tl = MaMaStop.img_to_string('data/temp.png', 'data/temp.png')
+            tl = self.reader.img_to_string('data/temp.png')
             os.remove('data/temp.png')
             fname = os.path.join('data', tl + '.png')
             img.save(fname)
+            self.reader.find_tl(tl)
             self.coords1 = None
             self.coords2 = None
 
@@ -81,14 +83,12 @@ class da_croppa:
             if self.image_label.winfo_x() < event.x < self.image_label.winfo_x() + self.images[self.page].size[0] \
                     and self.image_label.winfo_y() < event.y < self.image_label.winfo_y() + self.images[self.page].size[1]:
                 self.coords1 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
-                print("x")
             self.get_rect()
 
         def select2(event):
             if self.image_label.winfo_x() < event.x < self.image_label.winfo_x() + self.images[self.page].size[0] \
                     and self.image_label.winfo_y() < event.y < self.image_label.winfo_y() + self.images[self.page].size[1]:
                 self.coords2 = [event.x - self.image_label.winfo_x(), event.y - self.image_label.winfo_y()]
-                print("y")
             self.get_rect()
 
 
