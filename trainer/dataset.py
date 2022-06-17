@@ -97,6 +97,7 @@ class Batch_Balanced_Dataset(object):
         balanced_batch_texts = []
 
         for i, data_loader_iter in enumerate(self.dataloader_iter_list):
+            print(i)
             try:
                 image, text = data_loader_iter.next()
                 balanced_batch_images.append(image)

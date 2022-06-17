@@ -176,18 +176,16 @@ def train(opt, show_number=2, amp=False):
 
     scaler = GradScaler()
     t1 = time.time()
-
+    i = 0
     while (True):
         # train part
         optimizer.zero_grad(set_to_none=True)
-
         if amp:
             with autocast():
                 image_tensors, labels = train_dataset.get_batch()
                 image = image_tensors.to(device)
                 text, length = converter.encode(labels, batch_max_length=opt.batch_max_length)
                 batch_size = image.size(0)
-
                 if 'CTC' in opt.Prediction:
                     preds = model(image, text).log_softmax(2)
                     preds_size = torch.IntTensor([preds.size(1)] * batch_size)
