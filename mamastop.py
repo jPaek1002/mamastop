@@ -34,8 +34,8 @@ class MaMaStop:
             os.environ["PATH"] += os.pathsep + os.getcwd()
 
         pyperclip.copy(input)
-
         driver = webdriver.Firefox()
-        driver.get("https://papago.naver.com/?sk=ko&tk=en&st=%EB%B0%94%EB%B3%B4")
+        link = "https://papago.naver.com/?sk=ko&tk=en&st=" + input
+        driver.get(link)
 
 

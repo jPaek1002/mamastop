@@ -51,11 +51,10 @@ class da_croppa:
             tl = self.reader.img_to_string('data/temp.png')
             os.remove('data/temp.png')
             fname = os.path.join('data', tl + '.jpg')
-            img.save(fname)
+            img.convert('RGB').save(fname)
             self.reader.find_tl(tl)
             self.coords1 = None
             self.coords2 = None
-
 
 
     def launch(self):
