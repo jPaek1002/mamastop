@@ -37,5 +37,7 @@ class MaMaStop:
         driver = webdriver.Firefox()
         link = "https://papago.naver.com/?sk=ko&tk=en&st=" + input
         driver.get(link)
+        link = "https://ko.dict.naver.com/#/search?query=" + input
+        driver.get(link)
 
 
