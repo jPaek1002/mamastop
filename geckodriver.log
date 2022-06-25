@@ -580,3 +580,22 @@ DevTools listening on ws://localhost:64166/devtools/browser/3d8a6a9c-ea7d-4681-a
 1655613100775	Marionette	INFO	Listening on port 64180
 Read port: 64180
 1655613100841	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1655615001964	Marionette	INFO	Stopped listening on port 54938
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+2022-06-19 14:03:26.116 firefox-bin[38443:33738798] Warning: Expected min height of view: (<NSButton: 0x13c29a800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2022-06-19 14:03:26.118 firefox-bin[38443:33738798] Warning: Expected min height of view: (<NSButton: 0x143c8a000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2022-06-19 14:03:26.119 firefox-bin[38443:33738798] Warning: Expected min height of view: (<NSButton: 0x143c8c000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2022-06-19 14:03:26.120 firefox-bin[38443:33738798] Warning: Expected min height of view: (<NSButton: 0x143c8d000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2022-06-19 14:03:26.121 firefox-bin[38443:33738798] Warning: Expected min height of view: (<NSButton: 0x143c8cc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2022-06-19 14:03:26.121 firefox-bin[38443:33738798] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x143c8dc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2022-06-19 14:03:26.122 firefox-bin[38443:33738798] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x1402cc000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+1655615007781	Marionette	INFO	Stopped listening on port 61247
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
+1655615009876	Marionette	INFO	Stopped listening on port 64180
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
